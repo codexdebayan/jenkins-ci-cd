@@ -1,6 +1,8 @@
 import unittest
 from src.calculator import Calculator
 
+# These are the testing functions
+
 class TestCalculator(unittest.TestCase):
     def setUp(self):
         """Create a Calculator instance for use in tests."""
