@@ -24,14 +24,29 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container to execute the application
+                    // Pass any arguments to the calculator script (e.g., add 5 3)
                     docker.image('calculator-app').inside {
-                        // Replace with the actual command to run the application
                         sh 'python src/calculator.py add 5 3'
                     }
                 }
             }
         }
-        
-        
+        stage('Clean Up') {
+            steps {
+                script {
+                    // Optionally, remove the Docker image after the pipeline completes
+                    sh 'docker rmi calculator-app || true'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up unused Docker resources after the build
+            script {
+                sh 'docker system prune -f'
+            }
+        }
     }
 }
