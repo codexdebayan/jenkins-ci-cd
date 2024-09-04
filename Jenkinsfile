@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:20.10.7-dind' // Docker-in-Docker image
-            args '--privileged -v /var/lib/docker:/var/lib/docker -v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
-
+    agent any  // Use 'any' agent first, then specify docker for stages
     environment {
         APP_NAME = 'calculator-app'
         DOCKERFILE_PATH = 'dockerfile'
@@ -14,16 +8,13 @@ pipeline {
     }
 
     stages {
-        stage('Start Docker') {
-            steps {
-                script {
-                    // Start the Docker service
-                    sh 'dockerd-entrypoint.sh &'
-                    sh 'sleep 10' // Wait for Docker to initialize
+        stage('Build Docker Image') {
+            agent {
+                docker {
+                    image 'python:3.8-slim' // Define the Docker image here
+                    args '-v /var/lib/docker:/var/lib/docker -v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
-        }
-        stage('Build Docker Image') {
             steps {
                 script {
                     // Build the Docker image from the Dockerfile
@@ -48,14 +39,6 @@ pipeline {
                     docker.image("${env.APP_NAME}").inside {
                         sh "${env.RUN_COMMAND}"
                     }
-                }
-            }
-        }
-        stage('Clean Up') {
-            steps {
-                script {
-                    // Optionally, remove the Docker image after the pipeline completes
-                    sh "docker rmi ${env.APP_NAME} || true"
                 }
             }
         }
