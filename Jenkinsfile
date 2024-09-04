@@ -92,7 +92,7 @@
 pipeline { 
     agent {
         docker {
-            image 'docker:latest' // Use a Python Docker image
+            image 'rancher/dind:latest' // Use a Python Docker image
             args '-v /var/run/docker.sock:/var/run/docker.sock' // Ensure Docker commands can run
         }
     }
