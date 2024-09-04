@@ -15,3 +15,4 @@ COPY tests/ tests/
 
 # Command to run the unit tests
 CMD ["python", "-m", "unittest", "discover", "tests"]
+
