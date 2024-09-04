@@ -1,13 +1,13 @@
 pipeline { 
 
-    agent {
-        docker {
-            image 'ubunt:latest'
-            args '-v /var/lib/docker:/var/lib/docker -v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    // agent {
+    //     docker {
+    //         image 'ubunt:latest'
+    //         args '-v /var/lib/docker:/var/lib/docker -v /var/run/docker.sock:/var/run/docker.sock'
+    //     }
+    // }
 
-    // agent any
+    agent any
  
 
     stages { 
