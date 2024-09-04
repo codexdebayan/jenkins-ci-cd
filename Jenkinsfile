@@ -2,7 +2,8 @@ pipeline {
 
     agent {
         docker {
-            image 'ubuntu:latest'
+            image 'ubunt:latest'
+            args '-v /var/lib/docker:/var/lib/docker -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
