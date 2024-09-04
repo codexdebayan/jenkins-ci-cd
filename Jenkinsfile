@@ -92,7 +92,7 @@
 pipeline { 
     agent {
         docker {
-            image 'python:3.8-slim' // Use a Python Docker image
+            image 'docker:latest' // Use a Python Docker image
             args '-v /var/run/docker.sock:/var/run/docker.sock' // Ensure Docker commands can run
         }
     }
