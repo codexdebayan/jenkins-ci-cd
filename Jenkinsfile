@@ -1,6 +1,11 @@
 pipeline { 
 
-    agent any 
+    agent {
+        docker {
+            image 'python:3.8-slim'
+            args '-v /var/lib/docker:/var/lib/docker -v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
  
 
