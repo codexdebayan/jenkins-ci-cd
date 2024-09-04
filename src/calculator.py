@@ -1,3 +1,5 @@
+# This is a Calculator app
+
 class Calculator:
     def add(self, a, b):
         """Return the sum of a and b."""
