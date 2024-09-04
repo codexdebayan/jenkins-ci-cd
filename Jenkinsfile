@@ -92,20 +92,20 @@
 pipeline { 
     agent {
         docker {
-            image 'docker:20.10' // Use a Python Docker image
-            args '-v /var/run/docker.sock:/var/run/docker.sock' // Ensure Docker commands can run
+            image 'docker:20.10'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
-    stages { 
-        stage('Build Docker Image') { 
-            steps { 
-                script { 
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
                     // Build the Docker image from the Dockerfile
-                    docker.build('calculator-app', '-f dockerfile .') 
-                } 
-            } 
-        } 
+                    docker.build('calculator-app', '-f dockerfile .')
+                }
+            }
+        }
 
         stage('Run Unit Tests') { 
             steps { 
