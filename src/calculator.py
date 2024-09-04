@@ -1,4 +1,4 @@
-# This is a Calculator app
+
 
 class Calculator:
     def add(self, a, b):
