@@ -88,22 +88,4 @@ pipeline {
 
     } 
 
- 
-
-    post { 
-
-        always { 
-
-            // Clean up unused Docker resources after the build 
-
-            script { 
-
-                sh 'docker system prune -f' 
-
-            } 
-
-        } 
-
-    } 
-
 } 
