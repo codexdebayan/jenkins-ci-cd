@@ -67,15 +67,20 @@
 
 
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.9-slim'
+            args '-v ${WORKSPACE}:${WORKSPACE}'
+        }
+    }
     stages {
         stage('Build') {
             steps {
                 script {
-                    def workDir = isUnix() ? "${env.WORKSPACE}" : "/c/ProgramData/Jenkins/.jenkins/workspace/Jenkins-cicd/"
-                    docker.image('python:3.9-slim').inside {
-                        sh 'echo "Running inside Docker container"'
-                        sh "pwd"  // Print working directory to verify path
+                    if (isUnix()) {
+                        sh 'docker run -v ${WORKSPACE}:${WORKSPACE} python:3.9-slim'
+                    } else {
+                        bat 'docker run -v %WORKSPACE%:%WORKSPACE% python:3.9-slim'
                     }
                 }
             }
